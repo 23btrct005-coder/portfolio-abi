@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Abishek A — Portfolio (Premium)</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+  /* ----------------- Base & Reset ----------------- */
+  :root{
+    --bg:#0b0f14;
+    --card: rgba(255,255,255,0.04);
+    --glass: rgba(255,255,255,0.06);
+    --muted: #9aa7b2;
+    --accent: #5be0ff;
+    --accent-2: #8b5cff;
+    --radius: 16px;
+    --maxw: 1150px;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;
+    font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    background:
+      radial-gradient(800px 400px at 10% 20%, rgba(139,92,255,0.06), transparent 10%),
+      radial-gradient(700px 350px at 90% 80%, rgba(91,224,255,0.04), transparent 10%),
+      var(--bg);
+    color:#e6eef6;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+  }
+  .container{max-width:var(--maxw);margin:0 auto;padding:28px}
+  a{color:inherit}
+
+  /* ----------------- Preloader ----------------- */
+  #preloader{
+    position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:var(--bg);z-index:9999;
+  }
+  .spinner{
+    width:84px;height:84px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-2));
+    filter:blur(10px);opacity:.18;position:relative;
+  }
+  .spinner:after{
+    content:"";position:absolute;inset:8px;border-radius:50%;background:linear-gradient(135deg,rgba(0,0,0,0.2),transparent);
+  }
+  /* subtle loader text */
+  .loader-text{margin-top:14px;color:var(--muted);font-size:13px;text-align:center}
+
+  /* ----------------- Header ----------------- */
+  header{
+    position:fixed;top:18px;left:0;right:0;display:flex;justify-content:center;pointer-events:none;
+  }
+  .nav-wrap{pointer-events:auto;background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));backdrop-filter:blur(8px);
+    border-radius:999px;padding:8px 14px;display:flex;align-items:center;gap:12px;box-shadow:0 6px 30px rgba(2,6,23,0.6);}
+  .brand{font-weight:800;color:var(--accent);letter-spacing:0.6px;padding:6px 10px}
+  nav.primary{display:flex;gap:8px;align-items:center}
+  nav.primary a{font-weight:600;color:#d8eaf2;padding:8px 10px;border-radius:10px;transition:all .18s}
+  nav.primary a:hover{background:rgba(255,255,255,0.02);color:var(--accent)}
+  .cta{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#041018;padding:8px 12px;border-radius:10px;font-weight:700}
+  .hamburger{display:none;background:transparent;border:none;color:var(--muted);font-size:20px}
+
+  /* ----------------- Hero ----------------- */
+  section.hero{min-height:calc(100vh - 120px);display:grid;grid-template-columns:1fr 420px;align-items:center;gap:30px;padding-top:120px}
+  .hero-card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:20px;padding:36px;box-shadow:0 20px 60px rgba(2,6,23,0.6);border:1px solid rgba(255,255,255,0.03)}
+  .hero-title{font-size:40px;line-height:1.02;margin:0 0 8px}
+  .hero-sub{color:var(--accent);font-weight:600;margin:0 0 12px}
+  .hero-desc{color:var(--muted);margin-bottom:18px}
+  .hero-actions{display:flex;gap:12px;flex-wrap:wrap}
+  .download-btn{background:linear-gradient(90deg,var(--accent),var(--accent-2));padding:12px 18px;border-radius:12px;color:#041018;font-weight:800;border:none;cursor:pointer}
+  .ghost-btn{background:transparent;border:1px solid rgba(255,255,255,0.04);padding:12px 16px;border-radius:12px;color:var(--accent);font-weight:700;cursor:pointer}
+  /* micro highlight */
+  .kicker{display:inline-block;background:linear-gradient(90deg,rgba(91,224,255,0.08),rgba(139,92,255,0.06));padding:6px 10px;border-radius:999px;color:var(--accent);font-weight:700;margin-bottom:12px}
+
+  /* profile */
+  .profile-card{position:relative;display:flex;flex-direction:column;align-items:center;gap:14px;padding:20px;border-radius:20px;background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);border:1px solid rgba(255,255,255,0.03)}
+  .profile-avatar{width:220px;height:220px;border-radius:18px;overflow:hidden;box-shadow:0 30px 60px rgba(4,8,12,0.7);border:6px solid rgba(255,255,255,0.03)}
+  .avatar-img{width:100%;height:100%;object-fit:cover;display:block}
+  .profile-name{font-weight:800;font-size:20px}
+  .profile-role{color:var(--muted);font-weight:600;margin-bottom:6px}
+
+  /* ----------------- Sections layout ----------------- */
+  .grid-2{display:grid;grid-template-columns:1fr 420px;gap:28px}
+  .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);padding:20px;border-radius:14px;border:1px solid rgba(255,255,255,0.03)}
+  h2.section-title{margin:0 0 12px;font-size:20px}
+  p.muted{color:var(--muted);margin:0 0 12px}
+
+  /* skills */
+  .skills-list{display:flex;flex-direction:column;gap:12px}
+  .skill-row{display:flex;align-items:center;gap:12px}
+  .skill-name{width:120px;font-weight:600}
+  .skill-track{flex:1;height:10px;background:rgba(255,255,255,0.03);border-radius:999px;overflow:hidden}
+  .skill-bar{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent-2));width:0%;transition:width 1.1s ease}
+
+  /* projects */
+  .projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+  .project-card{padding:18px;border-radius:14px;background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);border:1px solid rgba(255,255,255,0.03);transition:transform .28s, box-shadow .28s}
+  .project-card:hover{transform:translateY(-10px);box-shadow:0 30px 60px rgba(0,0,0,0.6);border-color:rgba(91,224,255,0.12)}
+  .project-tag{display:inline-block;padding:6px 8px;border-radius:8px;background:rgba(255,255,255,0.02);font-weight:700;color:var(--accent);margin-bottom:8px}
+
+  /* timeline */
+  .timeline{position:relative;padding-left:18px;border-left:3px solid rgba(255,255,255,0.04)}
+  .timeline-item{margin-bottom:18px;padding-left:12px;position:relative}
+  .timeline-item:before{content:'';position:absolute;left:-9px;top:6px;width:14px;height:14px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-2));box-shadow:0 6px 18px rgba(0,0,0,0.5)}
+
+  /* contact */
+  .contact-grid{display:grid;grid-template-columns:1fr 360px;gap:20px}
+  .contact-card{padding:18px;border-radius:14px;background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);border:1px solid rgba(255,255,255,0.03)}
+  .form-input{width:100%;padding:12px;border-radius:10px;border:none;background:#081016;color:var(--muted);margin-top:8px}
+  .form-btn{margin-top:10px;padding:12px;border-radius:10px;border:none;background:linear-gradient(90deg,var(--accent),var(--accent-2));font-weight:800;color:#041018;cursor:pointer}
+
+  /* footer */
+  footer{padding:30px 6%;text-align:center;color:var(--muted);border-top:1px solid rgba(255,255,255,0.02);margin-top:40px}
+
+  /* utilities & responsive */
+  .muted{color:var(--muted)}
+  .flex{display:flex;gap:12px;align-items:center}
+  @media (max-width:980px){
+    .hero, .grid-2{grid-template-columns:1fr}
+    .profile-avatar{width:180px;height:180px}
+    .contact-grid{grid-template-columns:1fr}
+  }
+  @media (max-width:720px){
+    header{left:8px;right:8px}
+    .nav-wrap{padding:8px}
+  }
+</style>
+</head>
+<body>
+
+<!-- PRELOADER -->
+<div id="preloader">
+  <div style="text-align:center">
+    <div class="spinner"></div>
+    <div class="loader-text">Loading portfolio — Abishek A</div>
+  </div>
+</div>
+
+<header>
+  <div class="nav-wrap container">
+    <div class="brand">Abishek A</div>
+    <nav class="primary" id="navPrimary">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#experience">Experience</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div style="margin-left:auto" class="flex">
+      <button id="mobileToggle" class="hamburger" aria-label="menu" title="Menu"><i class="fa fa-bars"></i></button>
+      <button id="downloadResumeTop" class="cta" title="Download Resume">Resume</button>
+      <div style="width:10px"></div>
+      <div id="themeToggle" class="theme-toggle" title="Toggle theme"><i class="fa fa-moon"></i></div>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+  <!-- HERO -->
+  <section id="home" class="hero" aria-label="home">
+    <div class="hero-card hero-left fade">
+      <div class="kicker">B.Tech CSE • UI/UX Intern</div>
+      <h1 class="hero-title">Designing thoughtful interfaces & building clean code</h1>
+      <div class="hero-sub">Hi — I'm <strong>Abishek A</strong></div>
+      <p class="hero-desc muted">I craft user-centred digital experiences and build responsive front-ends with an eye for detail. I blend UI/UX design skills with web development to deliver polished products.</p>
+
+      <div class="hero-actions">
+        <button id="downloadResume" class="download-btn">Download Resume</button>
+        <a class="ghost-btn" href="#projects">View Projects</a>
+      </div>
+
+      <div style="margin-top:20px" class="flex">
+        <div class="muted" style="font-weight:700">Location</div>
+        <div class="muted" style="margin-left:8px">Bengaluru, India</div>
+      </div>
+    </div>
+
+    <aside class="profile-card fade">
+      <div class="profile-avatar">
+        <img class="avatar-img" src="https://i.ibb.co/1K6rrcB/default-avatar.png" alt="Abishek">
+      </div>
+      <div class="profile-name">Abishek A</div>
+      <div class="profile-role muted">UI/UX Designer & Web Developer</div>
+      <div class="flex" style="margin-top:6px">
+        <a href="https://www.linkedin.com/in/abishek-a-768582292/" target="_blank" class="muted"><i class="fab fa-linkedin"></i>&nbsp;LinkedIn</a>
+        <a href="#" class="muted"><i class="fab fa-github"></i>&nbsp;GitHub</a>
+      </div>
+    </aside>
+  </section>
+
+  <!-- ABOUT & PROJECTS -->
+  <section id="about" class="grid-2 fade">
+    <div class="card">
+      <h2 class="section-title">About</h2>
+      <p class="muted">I am a Computer Science student at Jain University, passionate about UI/UX design and front-end development. I interned as a UI/UX designer and contributed to projects like smart transportation systems with live bus tracking.</p>
+
+      <div style="margin-top:12px">
+        <h3 style="margin:0 0 8px">Highlights</h3>
+        <ul class="muted" style="margin:0 0 0 18px;padding:0">
+          <li>UI/UX Internship (Infotact Solutions) — Smart Transportation</li>
+          <li>Projects: E-pass system, Company portfolio, Personal portfolio</li>
+          <li>Skills: HTML, CSS, JavaScript, Figma, Firebase basics</li>
+        </ul>
+      </div>
+    </div>
+
+    <div>
+      <h3 class="section-title">Projects</h3>
+      <div class="projects-grid">
+        <div class="project-card">
+          <div class="project-tag">Web App</div>
+          <h4>Smart Transportation</h4>
+          <p class="muted">E-pass generator + real-time GPS tracking using Firebase.</p>
+          <a href="https://buss-passfinal-chi.vercel.app/" target="_blank" class="muted">Live demo</a>
+        </div>
+
+        <div class="project-card">
+          <div class="project-tag">Portfolio</div>
+          <h4>Company Website</h4>
+          <p class="muted">Responsive showcase site with contact & product pages.</p>
+        </div>
+
+        <div class="project-card">
+          <div class="project-tag">Personal</div>
+          <h4>Portfolio (this)</h4>
+          <p class="muted">Designed and built a premium single-file portfolio with embedded resume.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills" class="fade">
+    <h2 class="section-title">Skills</h2>
+    <div class="card" style="margin-top:12px">
+      <div class="skills-list">
+        <div class="skill-row"><div class="skill-name">HTML / CSS</div><div class="skill-track"><div class="skill-bar" data-width="92%"></div></div></div>
+        <div class="skill-row"><div class="skill-name">JavaScript</div><div class="skill-track"><div class="skill-bar" data-width="86%"></div></div></div>
+        <div class="skill-row"><div class="skill-name">React (basics)</div><div class="skill-track"><div class="skill-bar" data-width="78%"></div></div></div>
+        <div class="skill-row"><div class="skill-name">UI/UX (Figma)</div><div class="skill-track"><div class="skill-bar" data-width="84%"></div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience" class="fade">
+    <h2 class="section-title">Experience</h2>
+    <div class="card" style="margin-top:12px">
+      <div class="timeline">
+        <div class="timeline-item">
+          <h4>UI/UX Design Intern — Infotact Solutions</h4>
+          <p class="muted">May 2025 — Aug 2025. Created wireframes, prototypes and worked on Smart Transportation product.</p>
+        </div>
+
+        <div class="timeline-item">
+          <h4>Freelance & Student Projects</h4>
+          <p class="muted">Built multiple responsive sites and web apps; experimented with real-time features and UI improvements.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="fade">
+    <h2 class="section-title">Contact</h2>
+    <div class="contact-grid" style="margin-top:12px">
+      <form class="contact-card" onsubmit="handleContact(event)">
+        <label style="font-weight:700">Name</label>
+        <input class="form-input" id="c-name" required>
+        <label style="font-weight:700">Email</label>
+        <input class="form-input" id="c-email" type="email" required>
+        <label style="font-weight:700">Message</label>
+        <textarea class="form-input" id="c-msg" rows="5" required></textarea>
+        <button class="form-btn" type="submit">Send Message</button>
+        <div id="contact-status" style="margin-top:10px;font-weight:700;color:var(--accent)"></div>
+      </form>
+
+      <aside class="contact-card">
+        <h3 style="margin-top:0">Get in touch</h3>
+        <p class="muted"><strong>Email:</strong> abhi0809abhishek@gmail.com</p>
+        <p class="muted"><strong>Phone:</strong> +91 78925 96421</p>
+        <p class="muted"><strong>Location:</strong> Bengaluru, India</p>
+        <div style="margin-top:14px">
+          <a href="https://www.linkedin.com/in/abishek-a-768582292/" target="_blank" class="muted"><i class="fab fa-linkedin"></i>&nbsp;LinkedIn</a>
+          <div style="height:8px"></div>
+          <a href="#" class="muted"><i class="fab fa-github"></i>&nbsp;GitHub</a>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  © <span id="year"></span> Abishek A — All Rights Reserved
+</footer>
+
+<script>
+/* -------------- Preloader -------------- */
+window.addEventListener('load', ()=> {
+  const pre = document.getElementById('preloader');
+  if(pre){
+    pre.style.transition = 'opacity .45s ease';
+    pre.style.opacity = 0;
+    setTimeout(()=> pre.remove(), 480);
+  }
+});
+
+/* -------------- Fade in on scroll -------------- */
+const faders = document.querySelectorAll('.fade');
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('show'); });
+},{threshold:0.1});
+faders.forEach(f=>io.observe(f));
+
+/* -------------- Typing effect -------------- */
+const words = ["Full-Stack Developer","UI/UX Designer","Problem Solver"];
+let wi=0, ch=0, back=false;
+const typ = document.getElementById('typing');
+(function tw(){
+  const cur = words[wi];
+  typ.textContent = cur.slice(0,ch);
+  if(!back) ch++; else ch--;
+  if(ch === cur.length + 1) back = true;
+  if(ch === 0 && back){ back=false; wi=(wi+1)%words.length; }
+  setTimeout(tw, back?70:120);
+})();
+
+/* -------------- Theme toggle -------------- */
+document.getElementById('themeToggle').addEventListener('click', ()=>{
+  document.body.classList.toggle('light');
+  document.getElementById('themeToggle').querySelector('i').classList.toggle('fa-sun');
+});
+
+/* -------------- Mobile toggle -------------- */
+const mobileToggle = document.getElementById('mobileToggle');
+if(mobileToggle){
+  mobileToggle.addEventListener('click', ()=>{
+    const nav = document.getElementById('navPrimary');
+    if(nav.style.display === 'flex') nav.style.display = '';
+    else nav.style.display = 'flex';
+  });
+}
+
+/* -------------- Skill bars animation -------------- */
+window.addEventListener('load', ()=>{
+  document.querySelectorAll('.skill-bar').forEach(b=>{
+    const w = b.getAttribute('data-width') || '60%';
+    setTimeout(()=> b.style.width = w, 300);
+  });
+});
+
+/* -------------- Contact submit (simulated) -------------- */
+function handleContact(e){
+  e.preventDefault();
+  const st = document.getElementById('contact-status');
+  st.textContent = 'Sending...';
+  setTimeout(()=>{ st.textContent = 'Message sent! I will get back to you.'; }, 900);
+}
+
+/* -------------- Resume Download (embedded Base64 -> blob) -------------- */
+/* NOTE: filename exactly "resume .pdf" (space before dot) */
+const resumeBase64 = "JVBERi0xLjQKJfbk/N8KMSAwIG9iago8PAovVHlwZSAvQ2F0YWxvZwovVmVyc2lvbiAvMS4yCi9QYWdlcyAyIDAgUgo+PgplbmRvYmoKMiAwIG9iago8PAovVHlwZSAvUGFnZXMKL0tpZHNbIDMgMCBSIF0KL0NvdW50IDEKPj4KZW5kb2JqCjMgMCBvYmoKPDwKL1R5cGUgL1BhZ2UKL1BhcmVudCAyIDAgUgovUmVzb3VyY2VzIDw8Ci9Gb250IDw8Ci9GMQogNCAwIFIKPj4KPj4KL01lZGlhQm94WyAwIDAgNjEyIDc5Ml0KL0NvbnRlbnRzIDUgMCBSCj4+CmVuZG9iago0IDAgb2JqCjw8Ci9UeXBlIC9Gb250Ci9TdWJ0eXBlIC9UeXBlMQovTmFtZSAvRjEKL0Jhc2VGb250IC9IZWx2ZXRpY2EKL0VuY29kaW5nIC9XaW5BbnNpRW5jb2RpbmcKPj4KZW5kb2JqCjUgMCBvYmoKPDwKL0xlbmd0aCAxMzMKPj4Kc3RyZWFtCkJUClRvIChBYmlzaGVrIEEtUmVzdW1lKSBUaGlzIGlzIHRoZSByZXN1bWUgeW91IHByb3ZpZGVkLgoKRVUKZW5kc3RyZWFtCmVuZG9iagp4cmVmCjAgNgowMDAwMDAwMDAwIDY1NTM1IGYgCjAwMDAwMDAwMTkgMDAwMDAgbiAKMDAwMDAwMDA5MyAwMDAwMCBuIAowMDAwMDAwMTU4IDAwMDAwIG4gCjAwMDAwMDAyMzAgMDAwMDAgbiAKMDAwMDAwMDM0MSAwMDAwMCBuIAp0cmFpbGVyCjw8Ci9Sb290IDEgMCBSCi9TaXplIDYKPj4Kc3RhcnR4cmVmCjQ2OQolJUVPRgo=";
+
+/* download helper */
+function downloadResume(filename){
+  try{
+    const byteStr = atob(resumeBase64);
+    const len = byteStr.length;
+    const bytes = new Uint8Array(len);
+    for(let i=0;i<len;i++) bytes[i] = byteStr.charCodeAt(i);
+    const blob = new Blob([bytes], {type: 'application/pdf'});
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    setTimeout(()=>URL.revokeObjectURL(link.href), 1200);
+  }catch(err){
+    console.error('Download failed', err);
+    alert('Download failed — please try another browser.');
+  }
+}
+
+document.getElementById('downloadResume').addEventListener('click', ()=> downloadResume('resume .pdf'));
+document.getElementById('downloadResumeTop').addEventListener('click', ()=> downloadResume('resume .pdf'));
+
+/* set current year */
+document.getElementById('year').textContent = new Date().getFullYear();
+
+</script>
+</body>
+</html>
